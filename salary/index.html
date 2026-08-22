@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <title>מצגת פיננסית וזכויות עובדים - עולם העבודה</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Heebo', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            color: #1e293b;
+        }
+        .presentation-container {
+            width: 1000px;
+            height: 650px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 45px 50px 80px 50px;
+            box-sizing: border-box;
+            flex-direction: column;
+            animation: fadeEffect 0.5s;
+            overflow-y: auto;
+        }
+        .slide.active {
+            display: flex;
+        }
+        @keyframes fadeEffect {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            color: #0f172a;
+            font-size: 3.2em;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        h2 {
+            color: #1d4ed8;
+            font-size: 2.2em;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+        .card-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 20px;
+            flex: 1;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            position: relative;
+        }
+        .card-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .card-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+        .card-text {
+            font-size: 1.1em;
+            color: #475569;
+            line-height: 1.4;
+        }
+        .info-box {
+            background: #eff6ff;
+            border-right: 6px solid #3b82f6;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .quiz-option {
+            background: #f8fafc;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #334155;
+            cursor: default;
+        }
+        .quiz-answer {
+            background: #ecfdf5;
+            border: 2px solid #10b981;
+            color: #065f46;
+        }
+        .highlight {
+            color: #2563eb;
+            font-weight: bold;
+        }
+        .controls {
+            position: absolute;
+            bottom: 25px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: linear-gradient(to top, rgba(255,255,255,1) 50%, rgba(255,255,255,0));
+            padding-top: 15px;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Heebo', sans-serif;
+            font-weight: bold;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.4);
+            transition: all 0.2s;
+        }
+        button:hover { background: #1d4ed8; transform: translateY(-2px); }
+        button:disabled { background: #94a3b8; cursor: not-allowed; box-shadow: none; transform: none; }
+        .progress {
+            position: absolute;
+            bottom: 35px;
+            left: 40px;
+            font-size: 1.1em;
+            color: #64748b;
+            font-weight: bold;
+            z-index: 10;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            margin-top: 10px;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 12px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .comparison-table th { font-weight: 800; color: #1e293b; }
+        .comparison-table tr td:first-child { font-weight: bold; background: #f1f5f9; border-radius: 0 12px 12px 0; }
+        .comparison-table tr td:last-child { background: #f1f5f9; border-radius: 12px 0 0 12px; }
+    </style>
+</head>
+<body>
+
+<div class="presentation-container">
+
+    <!-- Slide 1: Welcome -->
+    <div class="slide active">
+        <div style="margin-top: 100px;">
+            <h1 style="color: #1e3a8a; font-size: 4em;">ברוכים הבאים לעולם העבודה</h1>
+            <h2 style="color: #3b82f6; font-size: 2.2em;">חינוך פיננסי, זכויות עובדים, והכוח שבידיים שלכם</h2>
+            <div style="text-align: center; font-size: 1.8em; margin-top: 40px; color: #475569;">
+                ארגז הכלים שלכם לעצמאות כלכלית 🚀
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: The Agreement -->
+    <div class="slide">
+        <h2>איך מסכמים תנאים? (הסכם עבודה)</h2>
+        <div class="info-box" style="border-color: #f59e0b; background: #fffbeb;">
+            "התקבלת! תבוא מחר ב-8:00". רגע, מה עם חוזה?
+        </div>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-icon">📝</div>
+                <div class="card-title">הודעה לעובד</div>
+                <div class="card-text">המעסיק <b>חייב</b> למסור לכם טופס מסודר המפרט את השכר, השעות והתפקיד. לנוער - תוך 7 ימים מתחילת העבודה!</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">📱</div>
+                <div class="card-title">ווטסאפ זה חוזה?</div>
+                <div class="card-text">כן! התכתבות בווטסאפ שבה המנהל כותב "אשלם לך 32 לשעה" היא ראיה משפטית. <b>אל תמחקו התכתבויות עם הבוס!</b></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Minimum Wage -->
+    <div class="slide">
+        <h2>שכר מינימום: כמה באמת שווה השעה שלכם?</h2>
+        <div class="info-box">
+            החוק קובע רצפת שכר שאסור למעסיק לרדת ממנה. מתעדכן בהתאם לגילכם (תעריפי 2026).
+        </div>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-icon">👦🏽</div>
+                <div class="card-title">עד גיל 16</div>
+                <div class="card-text" style="font-size: 1.5em; font-weight: bold; color: #059669;">26.11 ₪</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🧑🏻</div>
+                <div class="card-title">גיל 16-17</div>
+                <div class="card-text" style="font-size: 1.5em; font-weight: bold; color: #059669;">28.06 ₪</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">👨🏽‍🎓</div>
+                <div class="card-title">גיל 17-18</div>
+                <div class="card-text" style="font-size: 1.5em; font-weight: bold; color: #059669;">30.92 ₪</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Mandatory Payments -->
+    <div class="slide">
+        <h2>מעבר לשכר שעה - תשלומי חובה!</h2>
+        <div class="info-box">
+            יש דברים שהמעסיק מנסה לעיתים "לשכוח" לשלם עליהם. אל תוותרו:
+        </div>
+        <ul style="font-size: 1.35em; line-height: 1.8;">
+            <li>🚌 <b>החזר נסיעות:</b> מגיע לכם תשלום נסיעות (עד 22.60 ₪ ליום) אם אתם גרים מעל 500 מטר מהעבודה. גם אם הגעתם ברגל, באופניים או שההורים הקפיצו אתכם!</li>
+            <li>🎓 <b>זמן התלמדות / חפיפה:</b> כל שניה שאתם בעסק שווה כסף. אין דבר כזה "בוא ל-3 ימי התלמדות ללא תשלום". זו עבירה פלילית!</li>
+            <li>🗣️ <b>ישיבות צוות והשתלמויות:</b> הבוס קבע ישיבת צוות ביום שישי בבוקר? זה זמן עבודה לכל דבר ועליו לשלם לכם לפי שכר השעה שלכם.</li>
+        </ul>
+    </div>
+
+    <!-- Slide 5: Work hours limitations -->
+    <div class="slide">
+        <h2>כמה מותר לעבוד? שומרים עליכם!</h2>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-icon">⏱️</div>
+                <div class="card-title">מכסת שעות</div>
+                <div class="card-text">לנוער מותר לעבוד עד <b>8 שעות ביום</b>, ולא יותר מ-40 שעות בשבוע. (במקומות של 5 ימי עבודה מותר עד 9 שעות ביום).</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌙</div>
+                <div class="card-title">עבודת לילה</div>
+                <div class="card-text">מתחת לגיל 16: אסור לעבוד אחרי 20:00.<br>גיל 16-18: עד 22:00. בחופשות מותר עד 24:00, <b>רק אם</b> המעסיק דואג לכם להסעה הביתה!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Overtime -->
+    <div class="slide">
+        <h2>שעות נוספות - הבונוס שלכם! 💰</h2>
+        <div class="info-box" style="border-color: #10b981; background: #ecfdf5;">
+            עבדתם מעל 8 שעות ביום? מזל טוב, השכר שלכם מזנק! (החישוב הוא <b>יומי</b>, לא ניתן "לקזז" מול יום קצר).
+        </div>
+        <ul style="font-size: 1.4em; line-height: 1.8;">
+            <li>⏱️ <b>שעתיים ראשונות נוספות:</b> (השעה ה-9 וה-10). השכר שלכם עומד על <b>125%</b> משכר השעה הרגיל.</li>
+            <li>🚀 <b>מהשעה השלישית ואילך:</b> (השעה ה-11, 12...). השכר שלכם קופץ ל-<b>150%</b> מהשכר הרגיל!</li>
+            <li>🛑 <b>יום מנוחה:</b> עבודה ביום המנוחה השבועי (שבת עבור יהודים) מחייבת תשלום של 150% החל מהשעה הראשונה.</li>
+        </ul>
+    </div>
+
+    <!-- Slide 7: Global salary & Tips trap -->
+    <div class="slide">
+        <h2>זהירות, מלכודת! "שכר גלובלי" וטיפים</h2>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-icon">🍱</div>
+                <div class="card-title">אולמות אירועים (גלובלי)</div>
+                <div class="card-text">מציעים לכם "350 שקל למשמרת פתוחה"? זה לא חוקי בלי מעקב שעות. לעיתים קרובות משמרת נמשכת 10-12 שעות, ואתם <b>מפסידים</b> המון כסף על שעות נוספות! חובה להדפיס שעון נוכחות.</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">💵</div>
+                <div class="card-title">טיפים במסעדות</div>
+                <div class="card-text">הטיפים הם חלק מהשכר <b>רק אם הם נרשמים בקופה ובתלוש</b>. אם בסוף המשמרת הטיפים שיצאו לכם קטנים משכר המינימום - המעסיק חייב להשלים את ההפרש מהכיס שלו!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Age 18 Jump -->
+    <div class="slide">
+        <h2>קו הזינוק: מה משתנה ביום ההולדת ה-18?</h2>
+        <table class="comparison-table">
+            <tr>
+                <th></th>
+                <th style="background: #e0f2fe; border-radius: 12px 12px 0 0; color: #0284c7;">בגיל 17</th>
+                <th style="background: #d1fae5; border-radius: 12px 12px 0 0; color: #059669;">מגיל 18</th>
+            </tr>
+            <tr>
+                <td>שכר מינימום לשעה (2026)</td>
+                <td>30.92 ₪</td>
+                <td><b style="color: #059669;">35.40 ₪</b> 📈</td>
+            </tr>
+            <tr>
+                <td>ביטוח לאומי</td>
+                <td>100% פטור</td>
+                <td>מנוכה מהשכר (0.4%)</td>
+            </tr>
+            <tr>
+                <td>מס בריאות</td>
+                <td>100% פטור</td>
+                <td>מנוכה מהשכר (3.1%)</td>
+            </tr>
+        </table>
+        <div style="text-align: center; margin-top: 15px; font-size: 1.3em; font-weight: bold; background: #fef3c7; padding: 10px; border-radius: 8px;">
+            גיל 18 מביא איתו שכר גבוה יותר, אבל גם אחריות אזרחית חדשה!
+        </div>
+    </div>
+
+    <!-- Slide 9: Tax Credits Explanation -->
+    <div class="slide">
+        <h2>נקודות זיכוי - קופוני ההנחה של המדינה</h2>
+        <div class="info-box">
+            מגיל 18 אנחנו כפופים למס הכנסה. אבל המדינה מחלקת "קופוני הנחה" שנקראים נקודות זיכוי. כל נקודה שווה <b>242 ₪ בחודש</b> הנחה במס!
+        </div>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-icon">👨🏽</div>
+                <div class="card-title">נערים (גברים)</div>
+                <div class="card-text">
+                    מקבלים בסיס של <b>2.25 נקודות</b>.<br>
+                    שווה ערך להנחה של כ-544 ₪ בחודש.<br>
+                    פטור ממס עד שכר של כ-<b>7,621 ₪</b>.
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">👩🏽</div>
+                <div class="card-title">נערות (נשים)</div>
+                <div class="card-text">
+                    מקבלות בסיס של <b>2.75 נקודות</b>.<br>
+                    שווה ערך להנחה של כ-665 ₪ בחודש.<br>
+                    פטור ממס עד שכר של כ-<b>8,485 ₪</b>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Geography and Tax -->
+    <div class="slide">
+        <h2>איך המיקום שלכם משפיע על המס? 📍</h2>
+        <div class="info-box" style="border-color: #8b5cf6; background: #f5f3ff;">
+            המדינה משתמשת במס הכנסה כדי לעודד אנשים לגור באזורים מסוימים.
+        </div>
+        <ul style="font-size: 1.3em; line-height: 1.8;">
+            <li>🏠 <b>פרדס חנה-כרכור ואזור המרכז:</b> כאן משלמים מס הכנסה רגיל. ההנחה היחידה היא נקודות הזיכוי הבסיסיות (בהמשך תקבלו גם נקודות זיכוי כחיילים משוחררים שיעזרו מאוד).</li>
+            <li>⛰️ <b>יישובי פריפריה וקו עימות:</b> נערים ונערות מהגליל או מהעוטף למשל, מקבלים הטבות מס ענקיות ויכולים להרוויח לפעמים גם 12,000 ש"ח ללא תשלום מס כלל.</li>
+        </ul>
+    </div>
+
+    <!-- Slide 11: Authority and power dynamics -->
+    <div class="slide">
+        <h2>יחסי מרות - מתי הבוס עובר את הגבול?</h2>
+        <div class="info-box" style="border-color: #ef4444; background: #fef2f2;">
+            למנהל שלכם יש "סמכות" (מרות) עליכם בעבודה, אבל זה בשום אופן לא נותן לו שליטה עליכם כבני אדם! 
+        </div>
+        <ul style="font-size: 1.3em; line-height: 1.7;">
+            <li>🚫 <b>הטרדה מינית או התייחסות מבזה:</b> "בדיחות" לא במקום, הערות על הלבוש שלכן/ם, או כל רמיזה - הם עבירה חמורה, במיוחד בגלל פערי הכוחות.</li>
+            <li>🚫 <b>השפלה ואלימות מילולית:</b> גם אם עשיתם טעות קריטית בעבודה, אין לאף מנהל זכות לצעוק, להשפיל או לקלל אתכם. מגיע לכם סביבת עבודה בטוחה ומכבדת.</li>
+            <li>🚫 <b>שעות לא סבירות והקפצות:</b> המנהל לא יכול להכריח אתכם לבטל את כל החיים שלכם מעכשיו לעכשיו. חייב להיות תיאום סביר.</li>
+        </ul>
+    </div>
+
+    <!-- Slide 12: Quiz 1 -->
+    <div class="slide">
+        <h2>אתגר ידע #1: חישוב מול המעסיק</h2>
+        <div class="info-box">
+            רועי בן 17 ו-4 חודשים התחיל לעבוד בפיצרייה. בראיון, הבוס אומר: "אתה עוד לא בן 18, אז אני משלם לך 28.50 ₪ לשעה, אחלה כסף".
+        </div>
+        <div class="quiz-option">א] שכר מעולה! זה בדיוק התעריף.</div>
+        <div class="quiz-option">ב] הבוס עובר על החוק. מעל גיל 17 המינימום הוא 30.92 ₪ לשעה!</div>
+        <div class="quiz-option">ג] הבוס צודק, אבל רק בתנאי שחתמו על זה בחוזה.</div>
+    </div>
+
+    <!-- Slide 13: Quiz 1 Answer -->
+    <div class="slide">
+        <h2>תשובה לאתגר #1</h2>
+        <div class="quiz-option quiz-answer" style="border-width: 4px;">
+            ב] הבוס עובר על החוק. מעל גיל 17 המינימום הוא 30.92 ₪ לשעה!
+        </div>
+        <div style="font-size: 1.4em; margin-top: 20px; line-height: 1.6;">
+            <b>הסבר:</b> אסור למעסיק לשלם פחות משכר המינימום, גם אם העובד הסכים לכך! ברגע שרועי חגג 17, מדרגת השכר שלו קפצה אוטומטית. ידע שווה כסף.
+        </div>
+    </div>
+
+    <!-- Slide 14: Quiz 2 -->
+    <div class="slide">
+        <h2>אתגר ידע #2: תעלומת הקייטרינג</h2>
+        <div class="info-box">
+            נועה (17.5) מברמנת בקייטרינג. הציעו לה "350 שקל למשמרת סגורה". היא עבדה משעה 16:00 ועד 02:00 בלילה (10 שעות). האם עשו עליה קופה?
+        </div>
+        <div class="quiz-option">א] 35 שקל לשעה בממוצע. יצאה מורווחת!</div>
+        <div class="quiz-option">ב] הפסידה בגדול! לא שילמו לה על שעות נוספות ונסיעות.</div>
+        <div class="quiz-option">ג] העסקה הוגנת כי בחתונות נהוג לעבוד כך.</div>
+    </div>
+
+    <!-- Slide 15: Quiz 2 Answer -->
+    <div class="slide">
+        <h2>תשובה לאתגר #2</h2>
+        <div class="quiz-option quiz-answer" style="border-width: 4px;">
+            ב] הפסידה בגדול! לא שילמו לה על שעות נוספות ונסיעות.
+        </div>
+        <div style="font-size: 1.3em; margin-top: 15px; line-height: 1.5;">
+            <b>בואו נחשב:</b><br>
+            8 שעות רגילות X 30.92 = 247.3 ₪<br>
+            2 שעות נוספות (125%) X 38.65 = 77.3 ₪<br>
+            החזר נסיעות מינימלי = 22.60 ₪<br>
+            <b>השכר האמיתי שהגיע לה: לפחות 347 ₪.</b><br>
+            על פניו 350 זה דומה, אבל אם המשמרת תתארך אפילו בעוד חצי שעה - היא כבר עובדת בחינם! זו מלכודת ה"שכר הגלובלי".
+        </div>
+    </div>
+
+    <!-- Slide 16: Quiz 3 -->
+    <div class="slide">
+        <h2>אתגר ידע #3: מי משלם מס?</h2>
+        <div class="info-box">
+            רומי וגיא (בני 17.5 מפרדס חנה) עובדים יחד בחנות בגדים, ומשתכרים 5,500 ₪ כל אחד. האם ישלמו מס הכנסה?
+        </div>
+        <div class="quiz-option">א] רק גיא ישלם, כי לנשים יש יותר נקודות זיכוי.</div>
+        <div class="quiz-option">ב] שניהם ישלמו כי לפרדס חנה אין הטבת מס אזורית.</div>
+        <div class="quiz-option">ג] אף אחד מהם לא ישלם החודש.</div>
+    </div>
+
+    <!-- Slide 17: Quiz 3 Answer -->
+    <div class="slide">
+        <h2>תשובה לאתגר #3</h2>
+        <div class="quiz-option quiz-answer" style="border-width: 4px;">
+            ג] אף אחד מהם לא ישלם החודש.
+        </div>
+        <div style="font-size: 1.4em; margin-top: 20px; line-height: 1.6;">
+            <b>הסבר:</b> נכון שלנשים יש יותר נקודות ולפרדס חנה אין הטבת אזור, אבל השכר של שניהם (5,500) נמוך משמעותית מרף הפטור של שניהם (7,621 ₪ לבנים, 8,485 ₪ לבנות). נקודות הזיכוי הבסיסיות נותנות לשניהם פטור מלא!
+        </div>
+    </div>
+    
+    <!-- Slide 18: What to do -->
+    <div class="slide">
+        <h2>משהו מרגיש לכם לא תקין? אל תישארו לבד!</h2>
+        <div class="info-box" style="border-color: #8b5cf6; background: #f5f3ff;">
+            אם לא שילמו לכם, צעקו עליכם, או שהוטרדתם - יש למי לפנות!
+        </div>
+        <ul style="font-size: 1.4em; line-height: 1.7;">
+            <li>👩‍🏫 <b>דברו איתי!</b> בתור המחנכ.ת שלכם, אני כאן בשבילכם. דברו איתי או עם ההורים מיד. אל תפחדו ש"יפטרו אתכם", יש חוקים שמגנים עליכם.</li>
+            <li>✊ <b>הנוער העובד והלומד:</b> איגוד מקצועי שמעניק סיוע משפטי חינם לבני נוער שניצלו אותם בעבודה. ניתן לפנות אליהם בוואטסאפ או באתר.</li>
+            <li>⚖️ <b>זרוע העבודה (משרד הכלכלה):</b> הגוף הממשלתי שאחראי לאכוף חוקי עבודה ויכול לקנוס מעסיקים עבריינים.</li>
+        </ul>
+    </div>
+
+    <!-- Slide 19: Summary -->
+    <div class="slide">
+        <h2>עולים שלב לעצמאות: ארגז הכלים שלכם</h2>
+        <div class="card-container" style="margin-top: 40px;">
+            <div class="card">
+                <div class="card-icon">📄</div>
+                <div class="card-title">בדקו תמיד</div>
+                <div class="card-text">ודאו ששכר המינימום מעודכן ושאתם מקבלים שעות נוספות, חפיפה ונסיעות.</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🛡️</div>
+                <div class="card-title">תעדו הכל</div>
+                <div class="card-text">שמרו התכתבויות ווטסאפ, צלמו שעון נוכחות, ואל תסכימו לעבוד ב"שחור".</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">💡</div>
+                <div class="card-title">הציבו גבולות</div>
+                <div class="card-text">הבוס הוא לא המפקד שלכם. מגיעה לכם סביבת עבודה בטוחה ומכבדת.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="progress"><span id="currSlide">1</span> / 19</div>
+    <div class="controls">
+        <button id="prevBtn" onclick="changeSlide(-1)">הקודם</button>
+        <button id="nextBtn" onclick="changeSlide(1)">הבא</button>
+    </div>
+
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const currSlideLabel = document.getElementById('currSlide');
+    
+    function showSlide(index) {
+        slides.forEach(s => s.classList.remove('active'));
+        slides[index].classList.add('active');
+        document.getElementById('prevBtn').disabled = index === 0;
+        document.getElementById('nextBtn').disabled = index === slides.length - 1;
+        currSlideLabel.innerText = index + 1;
+    }
+    
+    function changeSlide(dir) {
+        currentSlide += dir;
+        if(currentSlide < 0) currentSlide = 0;
+        if(currentSlide >= slides.length) currentSlide = slides.length - 1;
+        showSlide(currentSlide);
+    }
+    
+    document.addEventListener('keydown', function(event) {
+        if(event.key === 'ArrowLeft') changeSlide(1);
+        else if(event.key === 'ArrowRight') changeSlide(-1);
+    });
+    
+    showSlide(0);
+</script>
+
+</body>
+</html>
