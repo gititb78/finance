@@ -232,6 +232,103 @@
             font-weight: bold;
             z-index: 30;
         }
+
+        /* התאמות למסכים קטנים (סלולר וטאבלט) - שומר על גרסת המחשב ללא שינוי! */
+        @media (max-width: 800px) {
+            body {
+                align-items: flex-start;
+                background: var(--slide-bg);
+            }
+            .presentation-container {
+                width: 100vw;
+                height: 100dvh;
+                max-width: 100%;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .slide {
+                padding: 20px 20px 90px 20px !important;
+                overflow-y: auto; /* מאפשר גלילה של תוכן ארוך בנייד */
+                justify-content: flex-start;
+            }
+            .slide-top-align {
+                padding-top: 20px !important;
+            }
+            h1 { font-size: 2.4rem !important; margin-bottom: 10px; line-height: 1.2 !important; }
+            h2 { font-size: 1.8rem !important; margin-bottom: 15px; }
+            .subtitle { font-size: 1.4rem !important; margin-bottom: 20px; }
+            p, li, .card-text { font-size: 1.25rem !important; line-height: 1.4 !important; }
+            
+            .info-box {
+                font-size: 1.25rem !important;
+                padding: 15px !important;
+                margin-bottom: 15px !important;
+            }
+            
+            .quiz-option {
+                font-size: 1.2rem !important;
+                padding: 12px 15px !important;
+            }
+            
+            .card-container {
+                flex-direction: column; /* הופך את הכרטיסיות למאונכות */
+                gap: 15px !important;
+            }
+            
+            .card {
+                padding: 15px !important;
+                margin-top: 5px;
+            }
+            
+            .tax-table {
+                font-size: 1rem !important;
+            }
+            
+            .tax-table th, .tax-table td {
+                padding: 6px 4px !important;
+            }
+            
+            .equation {
+                font-size: 1.25rem !important;
+                padding: 15px !important;
+                margin: 15px 0 !important;
+            }
+            
+            /* קיבוע סרגל הכלים למטה שלא ייעלם בגלילה */
+            .controls {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 15px;
+                background: #f8fafc;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                z-index: 100;
+                margin: 0;
+            }
+            
+            button.nav-btn {
+                padding: 10px 25px;
+                font-size: 1.2rem;
+            }
+            
+            .progress {
+                position: fixed;
+                bottom: 22px;
+                right: 20px;
+                z-index: 101;
+                font-size: 1.2rem;
+            }
+
+            /* דריסות של עיצובים פנימיים נקודתיים בשקפים (הinline styles) */
+            div[style*="font-size: 6rem"] { font-size: 4rem !important; margin-top: 20px !important; }
+            div[style*="margin-top: 100px"] { margin-top: 30px !important; }
+            b[style*="font-size: 2.8rem"] { font-size: 1.6rem !important; }
+            div[style*="padding: 50px"] { padding: 20px !important; margin-top: 15px !important; }
+            p[style*="font-size: 2.5rem"], 
+            p[style*="font-size: 2rem"] { font-size: 1.4rem !important; }
+            ul[style*="font-size: 1.8rem"] { font-size: 1.25rem !important; }
+        }
     </style>
 </head>
 <body>
@@ -401,7 +498,7 @@
     <div class="slide">
         <h2 style="margin-bottom: 15px;">חשבון הבנק הראשון שלכם</h2>
         <div class="info-box" style="border-color: #f59e0b; background: #fffbeb; text-align: center; padding: 50px; margin-top: 50px; font-size: 2.2rem; line-height: 1.6;">
-            בקרוב תפתחו (או כבר פתחתם) חשבון נוער או חייל.<br><br>
+            בקרוב תפתחו חשבון נוער או חייל (או שכבר פתחתם).<br><br>
             <b style="color: var(--accent); font-size: 2.8rem;">שאלה לכיתה:</b><br>
             ממה הבנק בעצם מתפרנס? 🤔
         </div>
@@ -410,7 +507,7 @@
     <!-- 12: פתיחת חשבון בנק - תשובה (חלק ב) -->
     <div class="slide">
         <h2 style="margin-bottom: 15px;">חשבון הבנק הראשון שלכם</h2>
-        <p style="margin-bottom: 5px;">אז ממה הבנק בעצם מתפרנס?</p>
+        <p style="margin-bottom: 5px;">בקרוב תפתחו חשבון נוער/חייל (או שכבר פתחתם). אבל ממה הבנק בעצם מתפרנס?</p>
         <div class="info-box" style="padding: 15px 20px; font-size: 1.65rem; margin-bottom: 15px;">
             <b>המודל העסקי של הבנק:</b> הבנק לוקח את הכסף שאתם שומרים אצלו בעו"ש בחינם, ונותן אותו כהלוואה לאנשים אחרים בריבית גבוהה. על הפער הזה הוא מרוויח מיליארדים.
         </div>
