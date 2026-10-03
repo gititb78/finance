@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מברוטו לנטו והשקעות - חינוך פיננסי י"ב</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --slide-bg: #ffffff;
+            --text: #0f172a;
+            --accent: #0284c7;
+            --accent-light: #e0f2fe;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --danger: #ef4444;
+            --danger-light: #fef2f2;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: var(--text);
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 1200px;
+            height: 750px;
+            background: var(--slide-bg);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden; /* חסימת גלילה אנכית לגמרי */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .brand {
+            font-weight: 800;
+            color: #64748b;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 50px 60px 80px 60px; /* מרווחים נדיבים, ללא צורך בגלילה */
+            box-sizing: border-box;
+            flex-direction: column;
+            animation: fadeEffect 0.4s ease-out;
+            justify-content: center; /* ממרכז את התוכן אנכית לניצול מקסימלי של המסך */
+        }
+
+        .slide.active { display: flex; }
+        
+        .slide-top-align { justify-content: flex-start; padding-top: 40px; }
+
+        @keyframes fadeEffect {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: var(--accent);
+            font-size: 4.5rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        h2 {
+            color: var(--accent);
+            font-size: 3rem;
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-bottom: 4px solid var(--accent-light);
+            padding-bottom: 10px;
+            display: inline-block;
+            align-self: flex-start;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #475569;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        p, li {
+            font-size: 1.7rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        ul { margin-top: 10px; margin-bottom: 20px; }
+
+        .info-box {
+            background: var(--accent-light);
+            border-right: 6px solid var(--accent);
+            padding: 25px;
+            border-radius: 12px;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .quiz-option {
+            background: #f8fafc;
+            border: 3px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 18px 25px;
+            margin-bottom: 15px;
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: #334155;
+            cursor: default;
+        }
+
+        .quiz-answer {
+            background: var(--success-light);
+            border-color: var(--success);
+            color: #064e3b;
+        }
+
+        .card-container {
+            display: flex;
+            gap: 25px;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 25px;
+            flex: 1;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-icon { font-size: 3.5rem; margin-bottom: 15px; text-align: center; }
+        .card-title { font-size: 1.8rem; font-weight: 800; color: #0f172a; margin-bottom: 10px; text-align: center; }
+        .card-text { font-size: 1.45rem; color: #475569; line-height: 1.4; }
+
+        .tax-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 1.5rem;
+        }
+        .tax-table th, .tax-table td {
+            border: 2px solid #cbd5e1;
+            padding: 12px 15px;
+            text-align: center;
+        }
+        .tax-table th { background: #e2e8f0; font-weight: bold; color: var(--accent); }
+        .tax-table tr:nth-child(even) { background: #f8fafc; }
+        
+        .compact-table th, .compact-table td {
+            padding: 6px 10px !important;
+        }
+
+        .equation {
+            font-family: monospace;
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 2.2rem;
+            direction: ltr;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 25px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 20;
+        }
+
+        button.nav-btn {
+            background: var(--text);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            font-size: 1.4rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Heebo', sans-serif;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        button.nav-btn:hover { background: #334155; }
+        button.nav-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+
+        .progress {
+            position: absolute;
+            bottom: 35px;
+            right: 40px;
+            font-size: 1.4rem;
+            color: #64748b;
+            font-weight: bold;
+            z-index: 30;
+        }
+    </style>
+</head>
+<body>
+
+<div class="presentation-container">
+
+    <!-- 1: פתיחה -->
+    <div class="slide slide-top-align active">
+        <div class="slide-header">
+            <div class="brand">מבואות עירון | גיתית בר-אל כהן | חינוך פיננסי י"ב</div>
+        </div>
+        <div style="margin-top: 100px;">
+            <h1>מברוטו לנטו:<br>נותנים לכסף לעבוד</h1>
+            <div class="subtitle">איך קוראים תלוש משכורת, ומה עושים עם הכסף שנשאר?</div>
+            <div style="text-align: center; font-size: 6rem; margin-top: 40px;">💸 📈 🏦</div>
+        </div>
+    </div>
+
+    <!-- 2: חידון ברוטו נטו -->
+    <div class="slide">
+        <h2>אתגר ידע #1: התלוש הראשון</h2>
+        <div class="info-box" style="border-color: #f59e0b; background: #fffbeb;">
+            יעל התקבלה לעבודה הראשונה שלה בהייטק אחרי הצבא. בחוזה כתוב במפורש: "השכר החודשי יעמוד על 15,000 ש"ח". ב-1 לחודש היא פותחת את אפליקציית הבנק. כמה כסף היא תראה שנכנס?
+        </div>
+        <div class="quiz-option">א] 15,000 ש"ח בדיוק (כי ככה חתמו בחוזה).</div>
+        <div class="quiz-option">ב] בערך 14,000 ש"ח (יורד קצת מס).</div>
+        <div class="quiz-option">ג] באזור ה-11,500 ש"ח. לאן נעלם הכסף?!</div>
+    </div>
+
+    <!-- 3: תשובה ברוטו נטו -->
+    <div class="slide">
+        <h2>תשובה לאתגר #1: ברוטו מול נטו</h2>
+        <div class="quiz-option quiz-answer">
+            ג] באזור ה-11,500 ש"ח. החוזה תמיד נחתם על שכר "ברוטו".
+        </div>
+        <p>בעולם העבודה יש שני מושגים קריטיים שחייבים להכיר:</p>
+        <ul style="font-size: 1.8rem; line-height: 1.8;">
+            <li><b>ברוטו (Gross):</b> הסכום שכתוב בחוזה. זו "העלות" שלכם למעסיק לפני הניכויים.</li>
+            <li><b>נטו (Net):</b> הסכום שבאמת נכנס לכם לבנק לחשבון העו"ש. זה הכסף שאיתו אתם הולכים למכולת.</li>
+        </ul>
+    </div>
+
+    <!-- 4: לאן הולך הכסף -->
+    <div class="slide">
+        <h2>אז מי נוגס לנו בשכר בדרך לנטו?</h2>
+        <p>הפער העצום בין הברוטו לנטו לא הולך לכיס של הבוס, אלא מחולק ל-3 יעדים:</p>
+        <div class="card-container">
+            <div class="card" style="border-top: 6px solid var(--accent);">
+                <div class="card-title">🏛️ מס הכנסה</div>
+                <div class="card-text">התשלום למדינה למימון כבישים, חינוך, וביטחון. התשלום מדורג וגדל ככל שמרוויחים יותר.</div>
+            </div>
+            <div class="card" style="border-top: 6px solid var(--warning);">
+                <div class="card-title">🏥 ביטוח לאומי ובריאות</div>
+                <div class="card-text">רשת הביטחון החברתית שלנו. מממן את קופת החולים, דמי אבטלה, וקצבאות נכות או מילואים.</div>
+            </div>
+            <div class="card" style="border-top: 6px solid var(--success);">
+                <div class="card-title">👴🏼 פנסיה והשתלמות</div>
+                <div class="card-text">
+                    <b>פנסיה:</b> חובה חוקית! חיסכון לגיל פרישה.<br>
+                    <b>קרן השתלמות:</b> רשות/הטבה. חיסכון פטור ממס שנפתח אחרי 6 שנים. רק מעסיקים טובים נותנים.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5: חידון מדרגות מס -->
+    <div class="slide">
+        <h2>אתגר ידע #2: המיתוס של מדרגות המס</h2>
+        <div class="info-box">
+            דן מרוויח 7,000 ש"ח ומשלם 10% מס. 
+            הבוס מעלה לו את השכר ל-7,500 ש"ח!<br><br>
+            דן נלחץ: "רגע! מ-7,011 ש"ח מתחילה מדרגת מס של 14%! עכשיו יקחו לי 14% מס על כל המשכורת ואני אקבל נטו נמוך יותר ממה שהרווחתי קודם!" 
+        </div>
+        <p style="font-weight: bold;">האם דן צודק?</p>
+        <div class="quiz-option">א] כן, דן צודק. לפעמים העלאת שכר פוגעת בנטו בגלל קפיצת מדרגה.</div>
+        <div class="quiz-option">ב] לא! המס הגבוה יחול <b>רק</b> על החלק שמעל המדרגה.</div>
+    </div>
+
+    <!-- 6: איך עובד מס הכנסה - תשובה -->
+    <div class="slide">
+        <h2>תשובה לאתגר #2: המיתוס נשבר</h2>
+        <div class="quiz-option quiz-answer">
+            ב] לא! המס הגבוה (14%) יחול רק על ה"שארית" (ה-489 ש"ח שמעל 7,010).
+        </div>
+        <p>מס הכנסה בישראל עובד בצורה <b>פרוגרסיבית</b> (מדורגת).</p>
+        <p>ברגע שעולים מדרגה, לא משלמים את האחוז הגבוה על כל המשכורת אחורה! המס המוגדל מחושב אך ורק על החלק היחסי של השכר שחצה את המדרגה.</p>
+        <div class="info-box" style="border-color: var(--success); background: var(--success-light); text-align: center; font-size: 2rem;">
+            אף פעם, העלאה בשכר ברוטו לא תגרום לכם להרוויח פחות בנטו.
+        </div>
+    </div>
+
+    <!-- 7: טבלת מדרגות מס (תוקן) -->
+    <div class="slide slide-top-align">
+        <h2 style="margin-bottom: 10px;">מדרגות מס הכנסה (2024)</h2>
+        <p style="font-size: 1.55rem; margin-bottom: 5px;">תחשבו על המדרגות כסדרה של "דליים". רק כשהדלי הראשון מתמלא לגמרי, הכסף נוזל לדלי הבא ושם חל עליו אחוז המס החדש:</p>
+        
+        <table class="tax-table compact-table" style="font-size: 1.4rem; margin-top: 5px;">
+            <tr>
+                <th>מדרגה</th>
+                <th>הכנסה חודשית (ש"ח)</th>
+                <th>שיעור המס על החלק הזה</th>
+            </tr>
+            <tr><td>דלי 1</td><td>0 עד 7,010 ₪</td><td><b>10%</b></td></tr>
+            <tr><td>דלי 2</td><td>7,011 עד 10,060 ₪</td><td><b>14%</b></td></tr>
+            <tr><td>דלי 3</td><td>10,061 עד 16,150 ₪</td><td><b>20%</b></td></tr>
+            <tr><td>דלי 4</td><td>16,151 עד 22,440 ₪</td><td><b>31%</b></td></tr>
+            <tr><td>דלי 5</td><td>22,441 עד 46,690 ₪</td><td><b>35%</b></td></tr>
+            <tr><td>דלי 6</td><td>46,691 עד 60,130 ₪</td><td><b>47%</b></td></tr>
+            <tr><td>דלי 7 (מס יסף)</td><td>מעל 60,130 ₪</td><td><b>50%</b></td></tr>
+        </table>
+    </div>
+
+    <!-- 8: מס שולי מול אפקטיבי -->
+    <div class="slide">
+        <h2>מס שולי מול מס אפקטיבי</h2>
+        <p>כשמישהו אומר "אני משלם 50% מס!", הוא לרוב מתבלבל בין שני המושגים:</p>
+        <ul>
+            <li style="margin-bottom: 25px;">
+                <b style="color: var(--accent); font-size: 1.9rem;">מס שולי (Marginal Tax):</b><br>
+                שיעור המס שתשלמו על <b>השקל האחרון</b> שהרווחתם. זה המס שמעניין אותנו כשאנחנו חושבים "האם שווה לי לקחת עוד משמרת בשבת?".
+            </li>
+            <li>
+                <b style="color: var(--success); font-size: 1.9rem;">מס אפקטיבי (Effective Tax):</b><br>
+                שיעור המס ה<b>אמיתי</b> והממוצע שאתם משלמים בפועל על כל השכר.<br>
+                בגלל שיטת הדליים, המס האפקטיבי תמיד נמוך בהרבה מהמס השולי!
+            </li>
+        </ul>
+    </div>
+
+    <!-- 9: איך למצוא מס אפקטיבי בתלוש -->
+    <div class="slide">
+        <h2>איך רואים את זה בתלוש?</h2>
+        <div class="info-box" style="text-align: center;">
+            כדי לדעת כמה מס <b>אפקטיבי</b> שילמתם החודש, מבצעים חישוב פשוט:
+        </div>
+        <div class="equation">
+            (סך מס הכנסה שנוכה) / (שכר ברוטו למס) * 100
+        </div>
+        <p>לדוגמה: מרוויחים 15,000 ש"ח ברוטו בחודש.<br>המס השולי שלכם הוא 20% (הגעתם לדלי 3).<br>אבל בפועל, סך מס ההכנסה שירד בתלוש הוא רק 1,200 ש"ח.</p>
+        <p style="font-size: 2rem; font-weight: bold; text-align: center; color: var(--success);">
+            1200 / 15000 = 8% מס אפקטיבי בלבד!
+        </p>
+    </div>
+
+    <!-- 10: נקודות זיכוי -->
+    <div class="slide">
+        <h2>ההנחה שלכם מהמדינה: נקודות זיכוי</h2>
+        <p>לפני שמס הכנסה לוקח מכם שקל אחד, הוא נותן לכם "הנחות" אוטומטיות. כל נקודת זיכוי שווה <b>242 ₪ בחודש</b> (נכון ל-2024) שמקוזזים מתשלום המס.</p>
+        
+        <div class="card-container">
+            <div class="card">
+                <div class="card-title">🇮🇱 תושב ישראל</div>
+                <div class="card-text">כל אזרח מקבל אוטומטית 2.25 נקודות = חיסכון של כ-544 ₪ במס כל חודש.</div>
+            </div>
+            <div class="card">
+                <div class="card-title">👩🏽 נשים</div>
+                <div class="card-text">מקבלות עוד חצי נקודה (0.5) אוטומטית = עוד הנחה של 121 ₪ בחודש.</div>
+            </div>
+            <div class="card">
+                <div class="card-title">🪖 חיילים משוחררים</div>
+                <div class="card-text">מקבלים עוד 2 נקודות שלמות למשך 3 שנים! לכן משוחררים <b>כמעט ולא משלמים מס</b>.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 11: פתיחת חשבון בנק - שאלה (חלק א) -->
+    <div class="slide">
+        <h2 style="margin-bottom: 15px;">חשבון הבנק הראשון שלכם</h2>
+        <div class="info-box" style="border-color: #f59e0b; background: #fffbeb; text-align: center; padding: 50px; margin-top: 50px; font-size: 2.2rem; line-height: 1.6;">
+            בקרוב תפתחו (או כבר פתחתם) חשבון נוער או חייל.<br><br>
+            <b style="color: var(--accent); font-size: 2.8rem;">שאלה לכיתה:</b><br>
+            ממה הבנק בעצם מתפרנס? 🤔
+        </div>
+    </div>
+
+    <!-- 12: פתיחת חשבון בנק - תשובה (חלק ב) -->
+    <div class="slide">
+        <h2 style="margin-bottom: 15px;">חשבון הבנק הראשון שלכם</h2>
+        <p style="margin-bottom: 5px;">אז ממה הבנק בעצם מתפרנס?</p>
+        <div class="info-box" style="padding: 15px 20px; font-size: 1.65rem; margin-bottom: 15px;">
+            <b>המודל העסקי של הבנק:</b> הבנק לוקח את הכסף שאתם שומרים אצלו בעו"ש בחינם, ונותן אותו כהלוואה לאנשים אחרים בריבית גבוהה. על הפער הזה הוא מרוויח מיליארדים.
+        </div>
+        <p style="margin-bottom: 5px;"><b>לכן, בחשבון הראשון אתם חייבים לדרוש:</b></p>
+        <ul style="font-size: 1.65rem; line-height: 1.5; margin-bottom: 10px;">
+            <li><b>פטור מלא מעמלות עו"ש:</b> לא משלמים על הפקדת צ'ק או העברה בנקאית!</li>
+            <li><b>דמי כרטיס אשראי בחינם:</b> בחשבונות צעירים זה הסטנדרט.</li>
+        </ul>
+        <p style="margin-bottom: 0;">אם מסרבים? עוברים בנק דרך האפליקציה ב-5 דקות.</p>
+    </div>
+
+    <!-- 13: מינוס בבנק -->
+    <div class="slide">
+        <h2>חריגה מהחשבון (מה זה "מינוס"?)</h2>
+        <p>מה קורה כשנגמר הכסף בחשבון (הגענו ל-0) ואנחנו רוצים לקנות משהו?</p>
+        <div class="info-box" style="border-color: var(--danger); background: var(--danger-light);">
+            להיכנס ל"מינוס" (אוברדראפט) אומר שאתם <b>לוקחים הלוואה מיידית מהבנק</b> ללא תכנון, והריבית על זה היא העצומה והיקרה ביותר שיש (לעתים 12% בשנה ויותר).
+        </div>
+        <ul>
+            <li>בחשבונות נוער צעירים, הבנק לרוב <b>לא מאפשר חריגה כלל</b>. אם אין כסף - הכרטיס פשוט לא עובר. וזה מעולה! זה שומר עליכם.</li>
+            <li>כדי להתחיל להשקיע בחיים, הכלל הראשון הוא שתמיד נהיה ב<b>יתרת זכות</b> (בפלוס).</li>
+        </ul>
+    </div>
+
+    <!-- 14: ריבית בנק ישראל -->
+    <div class="slide">
+        <h2>ריבית המשק – המחיר של הכסף</h2>
+        <p>לפני שנבין איפה משקיעים, צריך להבין איך הבנק מתמחר כסף. הכל מתחיל מגוף אחד: <b>בנק ישראל</b>.</p>
+        <div class="info-box">
+            בנק ישראל מחליט מהי "ריבית המשק". זו הריבית הבסיסית ביותר שעליה נשענת כל הכלכלה. 
+        </div>
+        <p><b>למה בנק ישראל משנה אותה?</b><br>
+        אם יש אינפלציה (המחירים טסים למעלה), בנק ישראל "מייקר את הכסף" ומעלה את הריבית. כשהריבית גבוהה, אנשים מעדיפים לחסוך בבנק מאשר לבזבז, לוקחים פחות הלוואות, והמחירים יורדים.</p>
+    </div>
+
+    <!-- 15: ריבית פריים -->
+    <div class="slide">
+        <h2>מהי ריבית פריים (Prime)?</h2>
+        <p>הבנקים המסחריים (פועלים, לאומי, מזרחי וכו') לוקחים את הריבית של בנק ישראל, <b>מוסיפים לה אוטומטית 1.5%</b>, וקוראים לזה "ריבית פריים".</p>
+        <p>זוהי ריבית הבסיס לכל החישובים שלהם מולנו:</p>
+        
+        <div class="card-container">
+            <div class="card" style="border-top: 6px solid var(--danger);">
+                <div class="card-title">כשאתם לוקחים הלוואה</div>
+                <div class="card-text">אתם משתמשים בכסף של הבנק. הבנק יתמחר לכם אותה ב<b>פריים פלוס</b> (למשל פריים + 5%). אתם משלמים ביוקר.</div>
+            </div>
+            <div class="card" style="border-top: 6px solid var(--success);">
+                <div class="card-title">כשאתם סוגרים חיסכון</div>
+                <div class="card-text">הבנק משתמש בכסף שלכם. הבנק יתמחר לכם את זה ב<b>פריים מינוס</b> (למשל פריים - 2%). אתם מקבלים פחות.</div>
+            </div>
+        </div>
+        <p style="text-align: center; font-weight: bold; font-size: 1.8rem; margin-top: 20px;">הפער בין ה"פלוס" ל"מינוס" הוא הרווח של הבנק!</p>
+    </div>
+
+    <!-- 16: חידון ריבית (תוקן) -->
+    <div class="slide">
+        <h2 style="margin-bottom: 15px;">אתגר ידע #3: קסם הריבית</h2>
+        <div class="info-box" style="border-color: #8b5cf6; background: #f3f0ff; padding: 15px 20px; font-size: 1.55rem; margin-bottom: 15px;">
+            קיבלתם 10,000 ש"ח מתנה.<br>
+            בנק א' מציע לסגור את הכסף לשנה בחיסכון שנותן <b>6% ריבית לשנה</b> (הכסף והריבית מחושבים בסוף השנה).<br><br>
+            בנק ב' מציע חיסכון שנותן <b>0.5% ריבית לחודש</b>, שמתעדכנת ומוכנסת לחשבון בכל חודש מחדש.<br>
+            איזה בנק ייתן לכם יותר כסף בסוף השנה?
+        </div>
+        <div class="quiz-option" style="padding: 12px 20px; font-size: 1.5rem; margin-bottom: 10px;">א] בנק א' (6% זה פשוט גדול יותר).</div>
+        <div class="quiz-option" style="padding: 12px 20px; font-size: 1.5rem; margin-bottom: 10px;">ב] בנק ב' (הריבית תצטבר ליותר מ-6%).</div>
+        <div class="quiz-option" style="padding: 12px 20px; font-size: 1.5rem; margin-bottom: 10px;">ג] זה בדיוק אותו דבר (12 חודשים כפול 0.5% = 6%).</div>
+    </div>
+
+    <!-- 17: ריבית דריבית (תוקן) -->
+    <div class="slide">
+        <h2 style="margin-bottom: 15px;">תשובה לאתגר #3: ריבית דריבית!</h2>
+        <div class="quiz-option quiz-answer" style="padding: 12px 20px; font-size: 1.6rem; margin-bottom: 15px;">
+            ב] בנק ב' ייתן לכם יותר כסף (בגלל "ריבית דריבית").
+        </div>
+        <p style="margin-bottom: 10px;">למה זה לא פשוט סכום הריביות? <b>כי הריבית מצטברת ומרוויחה ריבית בעצמה!</b></p>
+        <div class="info-box" style="background: #fff; padding: 15px 20px; font-size: 1.6rem; margin-bottom: 10px;">
+            בחודש הראשון קיבלתם 0.5% ולכן הוספתם 50 ₪ לחשבון (יש לכם 10,050).<br> 
+            <b>בחודש השני, ה-0.5% מחושב על הסכום החדש (10,050) ולא על ה-10,000 המקוריים! הכסף מתחיל לעבוד בשבילכם.</b>
+        </div>
+        <div class="equation" style="padding: 12px; font-size: 2rem; margin: 15px 0;">
+            בנק ב': 10,000 * (1.005)<sup>12</sup> = 10,616 ₪
+        </div>
+        <p style="text-align: center; font-size: 1.7rem; color: var(--accent); margin-bottom: 0;">המסקנה: תמיד תבקשו לדעת מהי <b>התשואה השנתית האפקטיבית (מתואמת)</b>.</p>
+    </div>
+
+    <!-- 18: אינפלציה -->
+    <div class="slide">
+        <h2>למה בכלל להשקיע את הנטו?</h2>
+        <div class="info-box" style="border-color: var(--danger); background: var(--danger-light);">
+            להשאיר כסף בחשבון העובר ושב (או מתחת לבלטה) זו הדרך הבטוחה ביותר להפסיד אותו. למה? בגלל ה<b>אינפלציה</b> (עליית מחירים).
+        </div>
+        <ul style="font-size: 1.8rem; line-height: 1.8;">
+            <li>בשנת 2010, מנת פלאפל עלתה 12 שקלים. ב-100 שקלים יכולתם לקנות 8 מנות.</li>
+            <li>בשנת 2024, פלאפל עולה 22 שקלים. אותם 100 שקלים יקנו לכם בקושי 4.5 מנות.</li>
+        </ul>
+        <p>ה-100 שקלים נשארו 100 שקלים מספרית, אבל <b>כוח הקנייה</b> שלהם נחתך בחצי. הפתרון היחיד הוא להשקיע את הכסף במסלול שמניב תשואה גבוהה מהאינפלציה.</p>
+    </div>
+
+    <!-- 19: משולש ההשקעות וטווחים -->
+    <div class="slide">
+        <h2>איך בוחרים מסלול השקעה?</h2>
+        <p>בעולם ההשקעות אין קסמים. תמיד בוחרים בין: <b>סיכון ↔️ תשואה ↔️ נזילות</b>.</p>
+        <p>הכלל הכי חשוב הוא לשאול את עצמנו: <b>מתי נצטרך את הכסף?</b></p>
+        
+        <div class="card-container">
+            <div class="card" style="border-top: 5px solid #94a3b8;">
+                <div class="card-title">🏃🏽‍♂️ טווח קצר</div>
+                <div class="card-text">למשל: כסף לטיול או רכב. <br><b>מטרה:</b> 0 סיכון, נזילות מיידית.<br><b>איפה:</b> פק"מ בבנק.</div>
+            </div>
+            <div class="card" style="border-top: 5px solid #3b82f6;">
+                <div class="card-title">🚶🏽‍♂️ טווח בינוני</div>
+                <div class="card-text">למשל: לימודים (3-5 שנים). <br><b>מטרה:</b> איזון סיכון-תשואה.<br><b>איפה:</b> אג"ח, קרן השתלמות.</div>
+            </div>
+            <div class="card" style="border-top: 5px solid #ef4444;">
+                <div class="card-title">🧘🏽‍♂️ טווח ארוך</div>
+                <div class="card-text">למשל: דירה או פנסיה (10+). <br><b>מטרה:</b> תשואה מקסימלית.<br><b>איפה:</b> מניות ותעודות סל.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 20: טיזר מניות מול בנק (תוקן) -->
+    <div class="slide">
+        <h2 style="margin-bottom: 15px;">אתגר ידע #4: סבתא המשקיעה</h2>
+        <div class="info-box" style="padding: 15px 20px; font-size: 1.55rem; margin-bottom: 15px;">
+            ב-2010 סבתא שולה רצתה לתת לנכד 10,000 ש"ח לגיל 18 (שיגיע ב-2024).<br><br>
+            אופציה 1: לשים את הכסף בפיקדון בנקאי בטוח לחלוטין.<br>
+            אופציה 2: לקנות לו מניות של החברות הגדולות בארה"ב (מדד S&P 500) למרות ששוק ההון עולה ויורד בפראות.
+        </div>
+        <p style="font-size: 1.6rem; margin-bottom: 10px;">מה היה הפער בין שני המסלולים כשהנכד פתח את החיסכון ב-2024?</p>
+        <div class="quiz-option" style="padding: 12px 20px; font-size: 1.5rem; margin-bottom: 10px;">א] הבורסה קרסה מדי פעם בדרך, אז הפק"מ בבנק ניצח.</div>
+        <div class="quiz-option" style="padding: 12px 20px; font-size: 1.5rem; margin-bottom: 10px;">ב] המניות ניצחו, אבל ההבדל הוא רק 5,000 ש"ח.</div>
+        <div class="quiz-option" style="padding: 12px 20px; font-size: 1.5rem; margin-bottom: 10px;">ג] המניות ניצחו בענק - פער של מעל 30,000 ש"ח!</div>
+    </div>
+
+    <!-- 21: תשובה לטיזר מניות -->
+    <div class="slide">
+        <h2>תשובה לאתגר #4: כוחו של הזמן</h2>
+        <div class="quiz-option quiz-answer">
+            ג] המניות ניצחו בענק! כוחה של הריבית דריבית בשוק ההון לאורך זמן.
+        </div>
+        <p>למרות שבאמצע היו משברים ענקיים (קורונה ב-2020), לאורך תקופה ארוכה של 14 שנים, שוק ההון נותן היסטורית תשואה ממוצעת של כ-8-10% בשנה.</p>
+        <div class="card-container">
+            <div class="card" style="border-top: 6px solid var(--accent); background: #f8fafc;">
+                <div class="card-title">סבתא בנק (פק"מ)</div>
+                <div class="card-text" style="font-size: 1.6rem;">10,000 השקלים צמחו בקושי ל-<b>12,000 ש"ח</b> בגלל ריביות אפסיות.</div>
+            </div>
+            <div class="card" style="border-top: 6px solid var(--success); background: #f0fdf4;">
+                <div class="card-title">סבתא בורסה (S&P 500)</div>
+                <div class="card-text" style="font-size: 1.6rem;">בהשקעה פסיבית, ה-10,000 שקלים הפכו לכמעט <b>45,000 ש"ח</b>!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 22: מסלול 1 - פק"מ -->
+    <div class="slide">
+        <h2>מסלול 1: פק"מ (פיקדון קצר מועד)</h2>
+        <div class="info-box" style="border-color: #94a3b8; background: #f1f5f9;">
+            הכי בטוח שיש, אבל משלמים על הביטחון הזה ביוקר (באובדן תשואה).
+        </div>
+        <ul>
+            <li><b>איך זה עובד?</b> אתם "נועלים" את הכסף בבנק לתקופה קבועה. בעצם, אתם המלווים.</li>
+            <li><b>סיכון:</b> אפסי. הבנק מבטיח מראש את הקרן והריבית (לפי הפריים עליו דיברנו).</li>
+            <li><b>תשואה:</b> נמוכה מאוד, לרוב מתקשה לנצח את האינפלציה.</li>
+            <li><b>מתי נשתמש בזה?</b> כשצריך לשמור כסף לדירה או לאוטו שקונים עוד חודש. אסור לסכן כסף שחייבים שיישאר זמין!</li>
+        </ul>
+    </div>
+
+    <!-- 23: מסלול מט"ח -->
+    <div class="slide">
+        <h2>מסלול 2: מטבע חוץ (מט"ח)</h2>
+        <p>לקנות דולרים או יורו ולשמור עליהם בתקווה שיעלו.</p>
+        <div class="info-box" style="border-color: #f59e0b; background: #fffbeb;">
+            האמת: זו <b>לא</b> באמת השקעה שמייצרת ערך פנימי. 
+        </div>
+        <ul>
+            <li>שטר של 100 דולר שוכב במגירה תמיד יישאר 100 דולר. הוא לא מייצר רווחים או מוצרים. התקווה היחידה שלכם היא ששער החליפין ישתנה לטובתכם.</li>
+            <li><b>מה הסיכון?</b> גבוה - תלוי לחלוטין בפוליטיקה, מלחמות, ובנקים מרכזיים.</li>
+            <li><b>מתי נשתמש בזה?</b> בעיקר כ<b>גידור (הגנה)</b>. אם אתם טסים לדרום אמריקה בעוד חצי שנה, קנו דולרים עכשיו כדי שאם השקל יקרוס פתאום - הטיול לא יתבטל.</li>
+        </ul>
+    </div>
+
+    <!-- 24: אג"ח ממשלתי -->
+    <div class="slide">
+        <h2>מסלול 3: אגרות חוב ממשלתיות (אג"ח)</h2>
+        <div class="info-box" style="border-color: #3b82f6; background: #eff6ff;">
+            כשהמדינה צריכה לממן מלחמה או רכבת תחתית, היא לא הולכת לבנק - היא מבקשת הלוואה מכם!
+        </div>
+        <p><b>איך זה עובד?</b> המדינה מנפיקה נייר (אג"ח). אתם קונים אותו ונותנים לה כסף. המדינה מתחייבת להחזיר לכם את הקרן בסוף התקופה, ובנוסף לשלם לכם ריבית קבועה (קופון) בכל שנה.</p>
+        <div class="card" style="border-top: 5px solid #0284c7; margin-top: 20px;">
+            <div class="card-title">רמת הסיכון</div>
+            <div class="card-text">נחשב לבטוח מאוד. למדינה תמיד יש יכולת להחזיר חובות (היא יכולה להעלות מיסים או להדפיס כסף). החיסרון: התשואה נמוכה בהתאם, אך לרוב טובה מפק"מ.</div>
+        </div>
+    </div>
+
+    <!-- 25: אג"ח קונצרני -->
+    <div class="slide">
+        <h2>מסלול 4: אג"ח קונצרני (חברות)</h2>
+        <p>בדיוק כמו שהמדינה צריכה כסף, גם חברות ענק (חברת החשמל, שופרסל, אל על) צריכות מיליארדים כדי להתרחב. אלו נקראות אגרות חוב "קונצרניות".</p>
+        
+        <div class="card" style="border-top: 5px solid #8b5cf6; margin-top: 20px;">
+            <div class="card-title">ההבדל מאג"ח ממשלתי</div>
+            <div class="card-text">
+                <ul style="margin-top: 10px;">
+                    <li><b>הסיכון:</b> גבוה יותר. חברה (אפילו גדולה) יכולה לפשוט רגל ולא להחזיר את הכסף (אירוע שנקרא בשוק ההון "תספורת").</li>
+                    <li><b>התשואה:</b> בגלל הסיכון, החברות חייבות לפתות אותנו עם ריבית הרבה יותר גבוהה מזו שהמדינה מציעה.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 26: מניות -->
+    <div class="slide">
+        <h2>מסלול 5: מניות (להיות הבעלים!)</h2>
+        <div class="info-box" style="border-color: #ef4444; background: #fef2f2;">
+            בניגוד לאג"ח (שבו אתם מלווים כסף), במניה - אתם קונים חתיכה של <b>בעלות</b> על החברה עצמה!
+        </div>
+        <ul>
+            <li>אם קניתם מניה של פלייסטיישן (סוני) - בכל פעם שילד קונה קונסולה בעולם, החברה הרוויחה ואתם הרווחתם (כיש לכם אחוז מזערי ממנה).</li>
+            <li><b>הרווח:</b> מגיע מעליית ערך המניה, ולעתים מחלוקת רווחים ישירות לחשבון (דיבידנד).</li>
+            <li><b>התשואה:</b> ההשקעה הרווחית ביותר היסטורית, אבל דורשת סבלנות לטווח ארוך בגלל התנודות.</li>
+        </ul>
+    </div>
+
+    <!-- 27: סכנת המניה הבודדת -->
+    <div class="slide">
+        <h2>אבל... סכנת המניה הבודדת</h2>
+        <p>לקנות מניה של חברה אחת בלבד (נניח, רק טסלה) זה הימור מסוכן. מה יקרה אם יתגלה באג ענק או שתקום חברה מתחרה סינית זולה פי עשרה?</p>
+        <div class="info-box" style="border-color: #f59e0b; background: #fffbeb;">
+            חברות ענק שחשבו שהן בלתי מנוצחות קרסו ונמחקו: נוקיה (פלאפונים), קודאק (צילום), בלוקבסטר (סרטים). אם שמתם שם את כל הכסף שלכם - הפסדתם הכל.
+        </div>
+        <p style="text-align: center; font-size: 2.5rem; margin-top: 30px; font-weight: bold; color: var(--accent);">
+            הפתרון: פיזור סיכונים.<br>(לא שמים את כל הביצים בסל אחד)
+        </p>
+    </div>
+
+    <!-- 28: קרן נאמנות (אקטיבית) -->
+    <div class="slide">
+        <h2>איך מפזרים סיכון? (1): קרן נאמנות אקטיבית</h2>
+        <div class="info-box">
+            אתם ועוד אלפי אנשים נותנים את הכסף למנהל השקעות מקצועי במגדל יוקרה.
+        </div>
+        <ul>
+            <li>המנהל והצוות שלו חוקרים חברות כל היום, ובוחרים מניות מתוך מטרה "להכות את השוק" (להרוויח יותר מהממוצע).</li>
+            <li>אם חברה אחת בקרן קורסת - זה לא נורא, כי יש למנהל עוד עשרות חברות אחרות.</li>
+            <li><b>החיסרון הענק:</b> המנהלים האלו רוצים משכורות עתק. דמי הניהול בקרנות אלו יקרים מאוד. בנוסף, סטטיסטית, רובם הגדול <b>לא מצליח</b> לנצח את השוק לאורך 10+ שנים.</li>
+        </ul>
+    </div>
+
+    <!-- 29: תעודת סל / מחקה -->
+    <div class="slide">
+        <h2>איך מפזרים סיכון? (2): קרן מחקה (ETF)</h2>
+        <div class="info-box" style="border-color: #a855f7; background: #faf5ff;">
+            במקום לשלם למנהל אנושי שינחש, קונים "חבילה" של מניות המנוהלת <b>אוטומטית ע"י מחשב</b> שעוקב אחרי מדד עולמי קיים.
+        </div>
+        <ul>
+            <li>למשל: <b>מדד S&P 500</b>. בקנייה פשוטה אחת, אתם מקבלים שבריר מ-500 החברות הגדולות והרווחיות ביותר בארה"ב (אפל, אמזון, גוגל וכו').</li>
+            <li>אם חברה בתוך ה-500 קורסת? היא נופלת מהמדד, וחברה חזקה אחרת נכנסת במקומה.</li>
+            <li><b>היתרון:</b> דמי ניהול כמעט אפסיים ופיזור מקסימלי. זוהי ההמלצה המובילה בעולם להשקעה ארוכת טווח.</li>
+        </ul>
+    </div>
+
+    <!-- 30: סיכום וכללי זהב -->
+    <div class="slide slide-top-align">
+        <div class="slide-header">
+            <div class="brand">מבואות עירון | גיתית בר-אל כהן | חינוך פיננסי י"ב</div>
+        </div>
+        <h2 style="text-align: center; border: none; width: 100%; margin-top: 30px;">חוקי הברזל שלכם לעתיד 🚀</h2>
+        <div class="card-container" style="margin-top: 30px; gap: 30px;">
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <div class="card-title">התלוש שלכם</div>
+                <div class="card-text" style="font-size: 1.5rem;">מס שולי הוא על השקל הבא, מס אפקטיבי הוא על הכל. אל תפחדו מהעלאות שכר, ודעו שהמדינה מתגמלת אתכם (חיילים) בהנחות ענק!</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">⏳</div>
+                <div class="card-title">הזמן הוא נשק</div>
+                <div class="card-text" style="font-size: 1.5rem;">בגלל הריבית דריבית, תתחילו להשקיע כמה שיותר מוקדם, אפילו 200 שקל בחודש. הריבית מרוויחה ריבית בעצמה לאורך עשרות שנים.</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <div class="card-title">הישארו בפלוס</div>
+                <div class="card-text" style="font-size: 1.5rem;">מינוס בבנק הוא הלוואה יקרה מול פריים גבוה. קודם כל דואגים ליתרת זכות, ורק אז מתאימים את סיכון ההשקעה לטווח הזמן שלכם.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress"><span id="currSlide">1</span> / 30</div>
+    
+    <div class="controls">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">הקודם</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">הבא</button>
+    </div>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const currLabel = document.getElementById('currSlide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    function showSlide(index) {
+        slides.forEach(s => s.classList.remove('active'));
+        slides[index].classList.add('active');
+        
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === slides.length - 1;
+        currLabel.innerText = index + 1;
+    }
+    
+    function changeSlide(dir) {
+        currentSlide += dir;
+        if(currentSlide < 0) currentSlide = 0;
+        if(currentSlide >= slides.length) currentSlide = slides.length - 1;
+        showSlide(currentSlide);
+    }
+    
+    document.addEventListener('keydown', (e) => {
+        if(e.key === 'ArrowLeft') changeSlide(1);
+        else if(e.key === 'ArrowRight') changeSlide(-1);
+    });
+    
+    showSlide(0);
+</script>
+
+</body>
+</html>
